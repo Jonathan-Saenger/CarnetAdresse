@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Contact;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,21 +14,9 @@ class AnnuaireController extends AbstractController
     {
 
         $contacts = [
-            [
-                'nom' => 'Dupont',
-                'prenom' => 'Jean',
-                'telephone' => '0123456789',
-            ],
-            [
-                'nom' => 'Durand',
-                'prenom' => 'Marie',
-                'telephone' => '0123456789',
-            ],
-            [
-                'nom' => 'Saenger',
-                'prenom' => 'Jonathan',
-                'telephone' => '0123456789',
-            ],
+            $this->createContact('Dupont','Jean','0123456789'),
+            $this->createContact('Durand','Marie','0123456789'),
+            $this->createContact('Saenger','John','0123456789'),
         ];
 
 
@@ -35,4 +24,18 @@ class AnnuaireController extends AbstractController
             'contacts' => $contacts,
         ]);
     }
+
+    private function createContact (string $nom, string $prenom, string $telephone): Contact
+    {
+        $contact = new Contact;
+
+        $contact
+            ->setNom($nom)
+            ->setPrenom($prenom)
+            ->setTelephone($telephone)
+        ;
+
+        return $contact;
+    }
+
 }
